@@ -3,6 +3,7 @@ import http from 'http'
 const request = {
   get url() {
     // ctx.request.req = req 让他可以取到 url
+    console.log(this.req.method, this.req.url)
     return this.req.url // 将对象的操作重定义
     // 这样可以做到取值和赋值的不同操作，同时也可以产生一些副作用，比如监听对象值的变化
   }
@@ -15,7 +16,13 @@ const response = {
   },
   set body(val) {
     this._body = val
-  }
+  },
+  get status() {
+    return this.res.statusCode
+  },
+  set status(val) {
+    this.res.statusCode = val
+  },
 }
 // 会直接挂在 ctx 上
 const context = {
@@ -24,11 +31,16 @@ const context = {
     return this.request.url
   },
   get body() {
-    
     return this.response.body
   },
   set body(val) {
     this.response.body = val 
+  },
+  get status() {
+    return this.response.status
+  },
+  set status(val) {
+    this.response.status = val
   }
 }
 
@@ -72,7 +84,7 @@ export default class Application {
     ctx.request = Object.create(this.request)
     ctx.response = Object.create(this.response)
     ctx.req = ctx.request.req = req
-    ctx.res = ctx.request.res = res
+    ctx.res = ctx.response.res = res
     // 最终 ctx 中有用的是 url body
     return ctx
   }
