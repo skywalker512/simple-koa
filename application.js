@@ -39,10 +39,31 @@ export default class Application {
     this.request = request
     this.response = response
     this.context = context
+    this.middlewares = []
+  }
+  // middlewares 通过 use 把中间件函数导入
+  compose (middlewares) {
+    // 在 listen 中传入 ctx
+    return function(context) {
+      // 执行第一个 middlewares 开始 递推
+      return dispatch(0)
+      function dispatch(i) {
+        const fn = middlewares[i]
+        if (!fn) {
+          return Promise.resolve()
+        }
+        // 因为 在 listen 使用 await 来执行该函数, await 会自动将函数转换为 Promise 对象
+        // 在这里直接返回 Promise 对象
+        return Promise.resolve(fn(context ,function next(){
+          return dispatch(i+1)
+        }))
+      }
+    }
   }
 
   use(callback) {
-    this.callback = callback
+    this.middlewares.push(callback)
+    // this.callback = callback
   }
 
   createCtx(req, res) {
@@ -59,7 +80,8 @@ export default class Application {
   listen (...args) {
     const server = http.createServer(async (req, res)=>{
       const ctx = this.createCtx(req, res)
-      await this.callback(ctx)
+      const fn = this.compose(this.middlewares)
+      await fn(ctx)
       ctx.res.end(ctx.body)
     })
     // 事实上 listen 里的参数 全都原封不动的 来到了 listen
