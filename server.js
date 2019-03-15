@@ -6,9 +6,12 @@ const app = new SimpleKoa()
 //   res.writeHead(200)
 //   res.end('hello')
 // })
-app.use((req, res)=>{
-  res.writeHead(200)
-  res.end('hello')
+// app.use((req, res)=>{
+//   res.writeHead(200)
+//   res.end('hello')
+// })
+app.use(async ctx => {
+  ctx.body = `Hello ${ctx.url}`
 })
 // server.listen(5129, ()=>{
 //   console.log('server is runing')
