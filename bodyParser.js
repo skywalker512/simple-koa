@@ -11,7 +11,7 @@ const formTypes = 'application/x-www-form-urlencoded'
 
 const textTypes = 'text/plain'
 
-const multiPart = 'multipart/form-data'
+// const multiPart = 'multipart/form-data'
 
 function parseQueryStr(queryStr) {
   let queryData = {}
@@ -42,9 +42,12 @@ export default function bodyParser() {
         }
       } else if (ctx.request.is(textTypes)) {
         result = body;
-      } else if (ctx.request.is(multiPart)) {
-        imgUploader(ctx, body)
+      } else {
+        ctx.body = 'type dont support'
       }
+      // else if (ctx.request.is(multiPart)) {
+      //   imgUploader(ctx, body)
+      // }
 
       // 将请求体中的信息挂载到山下文的request 属性中
       ctx.request.body = result;
