@@ -1,6 +1,5 @@
 import SimpleKoa from './application'
-import fs from 'fs'
-import path from 'path'
+import bodyParser from './bodyParser';
 const app = new SimpleKoa()
 
 
@@ -12,6 +11,7 @@ const app = new SimpleKoa()
 //   res.writeHead(200)
 //   res.end('hello')
 // })
+app.use(bodyParser())
 app.use(async (ctx, next) => {
   if (ctx.url === '/') {
     ctx.body = 'ok';
@@ -27,7 +27,7 @@ app.use(async (ctx, next) => {
 })
 
 app.use(async (ctx, next)=>{
-  console.log(ctx.req.method, ctx.req.url)
+  // console.log(ctx.req.method, ctx.req.url, ctx.req.headers['content-type'])
   await next()
 })
 // server.listen(5129, ()=>{

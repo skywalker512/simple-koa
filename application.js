@@ -5,6 +5,16 @@ const request = {
     // ctx.request.req = req 让他可以取到 url
     return this.req.url // 将对象的操作重定义
     // 这样可以做到取值和赋值的不同操作，同时也可以产生一些副作用，比如监听对象值的变化
+  },
+  get method() {
+    return this.req.method
+  },
+  is(type) {
+    if (type === this.req.headers['content-type'].split('; ')[0]){
+      return true
+    } else {
+      return false
+    }
   }
 }
 
@@ -40,6 +50,9 @@ const context = {
   },
   set status(val) {
     this.response.status = val
+  },
+  get method() {
+    return this.request.method
   }
 }
 
