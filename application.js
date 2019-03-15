@@ -3,7 +3,6 @@ import http from 'http'
 const request = {
   get url() {
     // ctx.request.req = req 让他可以取到 url
-    console.log(this.req.method, this.req.url)
     return this.req.url // 将对象的操作重定义
     // 这样可以做到取值和赋值的不同操作，同时也可以产生一些副作用，比如监听对象值的变化
   }

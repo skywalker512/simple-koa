@@ -1,4 +1,6 @@
 import SimpleKoa from './application'
+import fs from 'fs'
+import path from 'path'
 const app = new SimpleKoa()
 
 
@@ -11,7 +13,21 @@ const app = new SimpleKoa()
 //   res.end('hello')
 // })
 app.use(async (ctx, next) => {
-  ctx.body = `Hello ${ctx.url}`
+  if (ctx.url === '/') {
+    ctx.body = 'ok';
+  }
+  await next()
+})
+
+app.use(async (ctx, next) => {
+  if (ctx.url === '/err') {
+    ctx.body = 'err'
+  }
+  await next()
+})
+
+app.use(async (ctx, next)=>{
+  console.log(ctx.req.method, ctx.req.url)
   await next()
 })
 // server.listen(5129, ()=>{
