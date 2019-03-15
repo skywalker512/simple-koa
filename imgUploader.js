@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 function pathStr() {
   const date = new Date()
-  const str = path.join(__dirname, 'upload', String(date.getFullYear()), String(date.getMonth()), String(date.getDay()))
+  const str = path.join(__dirname, 'upload', String(date.getFullYear()), String(date.getMonth()+1), String(date.getDate()))
   return str
 }
 
