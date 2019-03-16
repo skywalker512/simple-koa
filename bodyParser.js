@@ -28,8 +28,8 @@ export default function bodyParser() {
     // 拦截post请求
     if (!ctx.request.body && ctx.method === 'POST') {
       // 解析请求体中的表单信息
-      let body = await readStream(ctx.request.req);
-      let result = body;
+      const body = await readStream(ctx.req).catch(err=>console.log(err))
+      let result = body
       if (ctx.request.is(formTypes)) {
         result = parseQueryStr(body);
       } else if (ctx.request.is(jsonTypes)) {
