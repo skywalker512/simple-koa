@@ -1,6 +1,7 @@
 import SimpleKoa from './application'
 import bodyParser from './bodyParser';
 import upload from './upload'
+import cors from './cors'
 
 const app = new SimpleKoa()
 
@@ -14,6 +15,7 @@ const app = new SimpleKoa()
 //   res.end('hello')
 // })
 app.use(bodyParser())
+app.use(cors)
 app.use(async (ctx, next) => {
   if (ctx.url === '/') {
     ctx.body = 'ok';
@@ -27,8 +29,11 @@ app.use(async (ctx, next) => {
 
 app.use(upload)
 
+
+
+
 app.use(async (ctx, next)=>{
-  // console.log(ctx.req.method, ctx.req.url, ctx.req.headers['content-type'])
+  console.log(ctx.req.method, ctx.req.url, ctx.req.headers['content-type'])
   await next()
 })
 // server.listen(5129, ()=>{
