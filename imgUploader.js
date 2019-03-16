@@ -9,8 +9,8 @@ function pathStr() {
 
 export default async function fileUploader(body) {
   try {
-    const { imgdata, filename } = body
-    const base64Data = imgdata.replace(/^data:image\/\w+;base64,/, "");
+    const { filedata, filename } = body
+    const base64Data = filedata.replace(/^data:image\/\w+;base64,/, "");
     const dataBuffer = new Buffer.from(base64Data, 'base64');
     const _path = pathStr()
     await mkdirp(_path)
