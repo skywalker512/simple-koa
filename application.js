@@ -32,6 +32,10 @@ const response = {
   set status(val) {
     this.res.statusCode = val
   },
+  set header(val) {
+    const { key, value } = val
+    this.res.setHeader(key, value)
+  }
 }
 // 会直接挂在 ctx 上
 const context = {
@@ -53,6 +57,10 @@ const context = {
   },
   get method() {
     return this.request.method
+  },
+  set(key, value) {
+    const val = {key, value}
+    this.response.header = val
   }
 }
 
