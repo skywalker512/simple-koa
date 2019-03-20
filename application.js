@@ -10,7 +10,7 @@ const request = {
     return this.req.method
   },
   is(type) {
-    if (type === this.req.headers['content-type'].split('; ')[0]){
+    if (this.req.headers['content-type'] && type === this.req.headers['content-type'].split('; ')[0]){
       return true
     } else {
       return false

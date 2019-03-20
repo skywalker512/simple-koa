@@ -10,6 +10,8 @@ const formTypes = 'application/x-www-form-urlencoded'
 
 const textTypes = 'text/plain'
 
+const streamTypes = 'application/octet-stream'
+
 // const multiPart = 'multipart/form-data'
 
 function parseQueryStr(queryStr) {
@@ -27,7 +29,7 @@ export default function bodyParser() {
     // 拦截post请求
     if (!ctx.request.body && ctx.method === 'POST') {
       // 解析请求体中的表单信息
-      const body = await readStream(ctx.req).catch(err=>console.log(err))
+      const body = await readStream(ctx.req).catch(err => console.log(err))
       let result = body
       if (ctx.request.is(formTypes)) {
         result = parseQueryStr(body);
@@ -36,10 +38,12 @@ export default function bodyParser() {
           try {
             result = JSON.parse(body);
           } catch (err) {
-            ctx.throw(500, err);
+            // ctx.throw(500, err);
           }
         }
       } else if (ctx.request.is(textTypes)) {
+        result = body;
+      } else if (ctx.request.is(streamTypes)) {
         result = body;
       } else {
         ctx.body = 'type dont support'

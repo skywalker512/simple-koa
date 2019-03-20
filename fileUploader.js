@@ -36,14 +36,13 @@ export async function fileEndUploader(body) {
       const originStream = fs.createReadStream(path)
       originStream.pipe(targetStream, { end: false })
       originStream.on("end", async ()=> {
-        console.log(path)
         await fs.unlinkSync(path);
         reslove()
       })
     })
-    await Promise.all(chunkPaths.map(async e=>{
-      await readStreamSingle(e)
-    }))
+    for(let i = 0; i < chunkPaths.length; i++) {
+      await readStreamSingle(chunkPaths[i])
+    }
     targetStream.end()
     await fs.rmdirSync(tempPath);
     return true
@@ -56,11 +55,9 @@ export async function fileEndUploader(body) {
 
 export async function fileDataUploader(body, key, step) {
   try {
-    // if (filedata)
-    const base64Data = body.replace(/data:application\/octet-stream;base64,/, '')
-    const dataBuffer = new Buffer.from(base64Data, 'base64')
+    const data = Buffer.from(body.toString(), 'binary')
     const _path = pathStr(key)
-    await fs.writeFileSync(path.join(_path, step), dataBuffer)
+    await fs.writeFileSync(path.join(_path, step), data)
     return true
   } catch (error) {
     console.log(error)
