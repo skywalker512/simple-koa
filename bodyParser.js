@@ -1,5 +1,4 @@
 import readStream from './readStream'
-import imgUploader from './imgUploader'
 
 // https://chenshenhai.github.io/koajs-design-note/note/chapter05/03.html
 
@@ -45,9 +44,6 @@ export default function bodyParser() {
       } else {
         ctx.body = 'type dont support'
       }
-      // else if (ctx.request.is(multiPart)) {
-      //   imgUploader(ctx, body)
-      // }
 
       // 将请求体中的信息挂载到山下文的request 属性中
       ctx.request.body = result;
