@@ -1,4 +1,4 @@
-import SimpleKoa from './application'
+import SimpleKoa from 'simple-koa-test'
 import bodyParser from './bodyParser';
 import upload from './upload'
 import cors from './cors'

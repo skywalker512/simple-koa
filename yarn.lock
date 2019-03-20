@@ -2306,6 +2306,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "http://registry.npm.taobao.org/signal-exit/download/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
+simple-koa-test@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/simple-koa-test/-/simple-koa-test-1.0.1.tgz#cc603d252511cc01d5bc55bcb0095bce58e461c9"
+  integrity sha512-VhlbzNO/5QWO0vSCVJaFrbBMqTQr6xfAxUa+IeSEm3RpqpVQY4dG/vwHaxChQ2dIEMdEEDkinG9qW/xx1QqtdQ==
+
 slash@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/slash/download/slash-2.0.0.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fslash%2Fdownload%2Fslash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
