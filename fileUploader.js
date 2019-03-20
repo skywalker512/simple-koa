@@ -49,6 +49,7 @@ export async function fileEndUploader(body) {
       await readStreamSingle(e)
     }))
     targetStream.end()
+    await fs.rmdirSync(tempPath);
     return true
   } catch (error) {
     console.log(error)
