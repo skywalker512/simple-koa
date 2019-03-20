@@ -11,12 +11,8 @@ function pathStr(key) {
 export async function fileInfoUploader(body) {
   try {
     const { key } = body
-    // if (filedata)
-    // const base64Data = filedata.replace(/^data:\/\w+;base64,/, "");
-    // const dataBuffer = new Buffer.from(base64Data, 'base64');
     const _path = pathStr(key)
     await fs.mkdirSync(_path, { recursive: true })
-    // await fs.writeFileSync(path.join(_path, `${Math.random().toString(36).substr(2,6)}_${filename}`), dataBuffer)
     return true
   } catch (error) {
     console.log(error)
@@ -65,6 +61,19 @@ export async function fileDataUploader(body, key, step) {
     const dataBuffer = new Buffer.from(base64Data, 'base64')
     const _path = pathStr(key)
     await fs.writeFileSync(path.join(_path, step), dataBuffer)
+    return true
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+
+export async function fileUndoUploader(body) {
+  try {
+    const { filename, key } = body
+    const filePath = pathStr()
+    await fs.unlinkSync(path.join(filePath, `${key}_${filename}`))
     return true
   } catch (error) {
     console.log(error)

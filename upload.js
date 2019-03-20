@@ -1,4 +1,4 @@
-import { fileInfoUploader, fileDataUploader, fileEndUploader } from './fileUploader'
+import { fileInfoUploader, fileDataUploader, fileEndUploader, fileUndoUploader } from './fileUploader'
 
 export default async (ctx, next) => {
   if (ctx.url === '/upload/start' && ctx.method === 'POST') {
@@ -7,6 +7,10 @@ export default async (ctx, next) => {
   }
   if (ctx.url === '/upload/end' && ctx.method === 'POST') {
     const res = await fileEndUploader(ctx.request.body)
+    ctx.body = res ? 'ok' : 'err'
+  }
+  if (ctx.url === '/upload/undo' && ctx.method === 'POST') {
+    const res = await fileUndoUploader(ctx.request.body)
     ctx.body = res ? 'ok' : 'err'
   }
   if (/^\/upload\/data/.test(ctx.url) && ctx.method === 'POST') {
